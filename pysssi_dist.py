@@ -34,6 +34,7 @@ import pygame
 from pygame.constants import *
 
 import random
+from controller_for_space import SpaceController
 
 
 ##################################################################
@@ -1338,16 +1339,13 @@ def	you_think():
 	joystick_think()
 
 # acquire user input, distill it down to four action bits: left/right/fire and prevfire
-	leftbit = 0
-	rightbit = 0
+        leftbit, rightbit, _ = controller.poll()
 	firebit = 0
 	prevfirebit = 0
         left_key = K_a  #K_LEFT
         right_key = K_d  #K_RIGHT
-	if keybits[left_key] or ((jx1 != -1) and (jx1 < 50)):
-		leftbit = 1
-	if keybits[right_key] or ((jx1 != -1) and (jx1 > 150)):
-		rightbit = 1
+        #leftbit = keybits[left_key] or ((jx1 != -1) and (jx1 < 50))
+        #rightbit = keybits[right_key] or ((jx1 != -1) and (jx1 > 150))
 	if keybits[ K_LCTRL] or keybits[ K_RCTRL] or (jbuttons & 15):
 		firebit = 1
 	if prevkeybits[ K_LCTRL] or prevkeybits[ K_RCTRL] or (prevjbuttons & 15):
@@ -1478,6 +1476,7 @@ def	dispatch_canvases():
 
 ##################################################################
 finished = False
+controller = SpaceController()
 while not finished:
 
 	prevkeybits = keybits[:]

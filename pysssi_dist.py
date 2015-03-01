@@ -693,32 +693,32 @@ def	canvas_greet():
 	VGAPRN.justify = JUSTIFY_CENTER
 
 	nn = 10		# cheesy line spacing onscreen
-	VGAPRN.printf( screen_size[0] / 2, 1 * screen_size[1] / nn,
-					"Python Super Stupid Space Invaders!")
-	VGAPRN.printf( screen_size[0] / 2, 2 * screen_size[1] / nn,
-					"By Kurt W Dekker for PLBM Games")
-	VGAPRN.printf( screen_size[0] / 2, 3 * screen_size[1] / nn,
-					"http://www.plbm.com");
-	VGAPRN.printf( screen_size[0] / 2, 4 * screen_size[1] / nn,
-					"Press <ENTER> to begin new game");
-	tmp = "Last: " + `STATE.score` + cheatarray[STATE.cheating] + " --- High: " + `STATE.highscore`
-	VGAPRN.printf( screen_size[0] / 2, 5 * screen_size[1] / nn,
-					tmp);
-	VGAPRN.printf( screen_size[0] / 2, 6 * screen_size[1] / nn,
-					"Use arrows to move and Ctrl to fire")
-	VGAPRN.printf( screen_size[0] / 2, 7 * screen_size[1] / nn,
-					"ESCAPE to exit and <F> to toggle Fullscreen")
-	VGAPRN.printf( screen_size[0] / 2, 8 * screen_size[1] / nn,
-					"Cheats: <X> - extra life, <N> - next wave")
+        tmp = "Last: " + `STATE.score` + cheatarray[STATE.cheating] + " --- High: " + `STATE.highscore`
+        splash_text = """Python Super Stupid Space Invaders!
+                By Kurt W Dekker for PLBM Games
+                http://www.plbm.com
+                Swipe in any direction to begin new game
+                """ +  \
+                tmp + '\n' +  \
+                """Point left/right to move left/right.
+                Point upwards quickly to fire.
+                ESCAPE to exit and <F> to toggle Fullscreen
+                """
+        for i, line in enumerate(splash_text.splitlines(), 1):
+            line = line.strip()
+            VGAPRN.printf( screen_size[0] / 2, i * screen_size[1] / nn, line)
 
 	joystick_think()
 
 	if jbuttons & 15:
 		STATE.canvasno = CANVAS_INITGAME
 
+        if controller.detect_swiped():
+                STATE.canvasno = CANVAS_INITGAME
+
 	if len( keypresses):
-		if keypresses[0] == K_RETURN:
-			STATE.canvasno = CANVAS_INITGAME
+                #if keypresses[0] == K_RETURN:
+                        #STATE.canvasno = CANVAS_INITGAME
 		if keypresses[0] == K_ESCAPE:
 			global finished
 			finished = True

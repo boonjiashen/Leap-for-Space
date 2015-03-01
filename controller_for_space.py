@@ -13,10 +13,10 @@ class SpaceController(Leap.Controller):
 
         left, right, fire = False, False, False
 
-        # Get left/right command with first right hand
-        right_hands = [hand for hand in frame.hands if not hand.is_left]
-        if right_hands:
-            hand = right_hands[0]
+        # Get left/right command with first hand
+        hands = frame.hands
+        if hands:
+            hand = hands[0]
 
             # Get arm bone
             # Arm at 9 o'clock = -90 deg yaw
@@ -28,6 +28,16 @@ class SpaceController(Leap.Controller):
 
             left = yaw > half_angle
             right = yaw < -half_angle
+
+        # Get fire command from first index finger of first hand
+        index_fingers = [finger
+                for hand in hands
+                for finger in hand.fingers
+                if finger.type() == 1]
+        if index_fingers:
+            finger = index_fingers[0]
+            up_velocity = finger.tip_velocity.y
+            fire = up_velocity > 500
 
         return left, right, fire
 

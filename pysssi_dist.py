@@ -1339,15 +1339,13 @@ def	you_think():
 	joystick_think()
 
 # acquire user input, distill it down to four action bits: left/right/fire and prevfire
-        leftbit, rightbit, _ = controller.poll()
-	firebit = 0
+        leftbit, rightbit, firebit = controller.poll()
 	prevfirebit = 0
         left_key = K_a  #K_LEFT
         right_key = K_d  #K_RIGHT
         #leftbit = keybits[left_key] or ((jx1 != -1) and (jx1 < 50))
         #rightbit = keybits[right_key] or ((jx1 != -1) and (jx1 > 150))
-	if keybits[ K_LCTRL] or keybits[ K_RCTRL] or (jbuttons & 15):
-		firebit = 1
+	#firebit = keybits[ K_LCTRL] or keybits[ K_RCTRL] or (jbuttons & 15)
 	if prevkeybits[ K_LCTRL] or prevkeybits[ K_RCTRL] or (prevjbuttons & 15):
 		prevfirebit = 1
 

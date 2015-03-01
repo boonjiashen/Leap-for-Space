@@ -20,3 +20,5 @@ Acknowledgements
 ---
 Space Invaders game comes from [Kurt Dekker](http://pygame.org/project-Python+Super+Stupid+Space+Invaders-365-.html).
 
+Thanks to the organizers and sponsors of [HackIllinois 2015](hackillinois.org) for providing all hardware for the hackathon.
+

@@ -13,7 +13,8 @@ Run
 
 Requirements
 ---
-* Leap motion
+* Leap Motion hardware
+* Leap Motion SDK
 * Pygame
 
 Acknowledgements

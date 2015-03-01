@@ -13,14 +13,10 @@ class SpaceController(Leap.Controller):
 
         left, right, fire = False, False, False
 
-        # Get hands
-        for hand in frame.hands:
-
-            handType = "Left hand" if hand.is_left else "Right hand"
-
-            # Get the hand's normal vector and direction
-            normal = hand.palm_normal
-            direction = hand.direction
+        # Get left/right command with first right hand
+        right_hands = [hand for hand in frame.hands if not hand.is_left]
+        if right_hands:
+            hand = right_hands[0]
 
             # Get arm bone
             # Arm at 9 o'clock = -90 deg yaw

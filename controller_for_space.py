@@ -7,6 +7,21 @@ import math
 
 class SpaceController(Leap.Controller):
 
+    def __init__(self):
+        Leap.Controller.__init__(self)
+        self.enable_gesture(Leap.Gesture.TYPE_CIRCLE)
+        self.enable_gesture(Leap.Gesture.TYPE_SWIPE)
+        self.enable_gesture(Leap.Gesture.TYPE_KEY_TAP)
+        self.enable_gesture(Leap.Gesture.TYPE_SCREEN_TAP)
+
+    def detect_swiped(self):
+        "Returns True if user swiped in any direction, returns False otherwise"
+        gestures = self.frame().gestures()
+        for gesture in gestures:
+            if gesture.type == Leap.Gesture.TYPE_SWIPE:
+                return True
+        return False
+
     def poll(self):
 
         frame = self.frame()
@@ -49,9 +64,10 @@ def main():
     # Keep this process running until Enter is pressed
     print "Press Enter to quit..."
     while True:
-        left, right, fire = controller.poll()
-        print ('Go left? %i, Go right? %i, Fire? %i' % (left, right, fire))
-        time.sleep(.01)
+        #left, right, fire = controller.poll()
+        #print ('Go left? %i, Go right? %i, Fire? %i' % (left, right, fire))
+        print controller.detect_swiped()
+        #time.sleep(.01)
 
     #keyboard.tap_key('a')
     #keyboard.tap_key('d')

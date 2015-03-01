@@ -14,30 +14,30 @@ class SpaceController(Leap.Controller):
         left, right, fire = False, False, False
 
         # Get left/right command with first hand
+        HALF_ANGLE = 10
+        MIN_VELOCITY = 500
         hands = frame.hands
         if hands:
-            hand = hands[0]
-
             # Get arm bone
             # Arm at 9 o'clock = -90 deg yaw
             # Arm at 3 o'clock = 90 deg yaw
-            arm = hand.arm
-            yaw = math.atan2(-arm.direction.z, arm.direction.x) *  \
+            #tool = hands[0].arm  # Use arm as pointing tool
+            tool = hands[0]  # Use hand itself as pointing tool
+            yaw = math.atan2(-tool.direction.z, tool.direction.x) *  \
                     Leap.RAD_TO_DEG - 90
-            half_angle = 20
 
-            left = yaw > half_angle
-            right = yaw < -half_angle
+            left = yaw > HALF_ANGLE
+            right = yaw < -HALF_ANGLE
 
         # Get fire command from first index finger of first hand
         index_fingers = [finger
-                for hand in hands
+                for hand in frame.hands
                 for finger in hand.fingers
                 if finger.type() == 1]
         if index_fingers:
             finger = index_fingers[0]
             up_velocity = finger.tip_velocity.y
-            fire = up_velocity > 500
+            fire = up_velocity > MIN_VELOCITY
 
         return left, right, fire
 

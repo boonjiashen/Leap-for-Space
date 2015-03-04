@@ -17,6 +17,10 @@ Requirements
 * Leap Motion SDK
 * Pygame
 
+Demo
+---
+[![demo](http://img.youtube.com/vi/xBJT5y7njuA/0.jpg)](https://www.youtube.com/watch?v=xBJT5y7njuA)  
+
 Acknowledgements
 ---
 Space Invaders game comes from [Kurt Dekker](http://pygame.org/project-Python+Super+Stupid+Space+Invaders-365-.html).
